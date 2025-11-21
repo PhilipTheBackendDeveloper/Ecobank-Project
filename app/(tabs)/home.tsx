@@ -1,18 +1,23 @@
 import { Ionicons } from "@expo/vector-icons";
-import React from "react";
+import React, { useState } from "react";
 import {
-    Dimensions,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  Dimensions,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from "react-native";
+
 
 const { width } = Dimensions.get("window");
 
 export default function Home() {
+  const  [showBalance, setshowBalance]= useState(false) 
+  const showBalanceBtn= ()=>{
+    setshowBalance(!showBalance)
+  };
   return (
     <SafeAreaView  style={styles.safe}>
       <ScrollView
@@ -70,8 +75,19 @@ export default function Home() {
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity style={styles.showBalanceBtn} activeOpacity={0.8}>
-            <Text style={styles.showBalanceText}>Show my balance</Text>
+          <TouchableOpacity activeOpacity={0.8} onPress={showBalanceBtn}>
+            {
+              !showBalance ? (
+                
+                <View style={styles.showBalanceBtn}>
+                    <Text style={styles.showBalanceText }>Show my balance</Text>
+                </View>
+             ) : showBalance && (
+              <View style={styles.showBalanceState}>
+                 <Text style={{fontSize: 24, color: "#fff"}}>$900,738,998,009,069.50</Text>
+                 </View>
+            )
+           }
           </TouchableOpacity>
         </View>
       </View>
@@ -80,7 +96,7 @@ export default function Home() {
       <View style={styles.scrollContent}>
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>QUICK TRANSACTION</Text>
-          <Ionicons name="chevron-down" size={18} color="#0C5B78" />
+          <Ionicons name="chevron-down" size={18} color="#1581C4" />
         </View>
 
         <View style={styles.grid}>
@@ -101,7 +117,7 @@ export default function Home() {
         
         <View style={[styles.sectionHeader, { marginTop: 10 }]}>
           <Text style={styles.sectionTitle}>YOUR ACTIVITY</Text>
-          <Ionicons name="chevron-down" size={18} color="#0C5B78" />
+          <Ionicons name="chevron-down" size={18} color="#1581C4" />
         </View>
 
         <View style={styles.activityCard}>
@@ -202,7 +218,8 @@ const styles = StyleSheet.create({
   
   accountCardHeader: {
     backgroundColor: "#1581C4",
-    marginTop: 12,
+    marginTop: 10,
+    marginBottom: -40,
     padding: 16,
     width: width - 36,
     shadowColor: "#000",
@@ -219,7 +236,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  cardTitle: { color: "#fff", fontSize: 16, fontWeight: "700" },
+  cardTitle: { color: "#fff", fontSize: 20, fontWeight: "300" },
   cardNumber: { color: "#E6F5FB", marginTop: 6, fontSize: 12 },
 
   cardSettings: {
@@ -240,22 +257,28 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  showBalanceText: { color: "#fff", fontWeight: "700" },
+  showBalanceText: { color: "#fff", fontWeight: "300" ,fontSize: 16 },
   scrollContent: {
     paddingHorizontal: 18,
     paddingTop: 16,
     backgroundColor: "#fff",
     marginTop: 50,
   },
+  showBalanceState:{
+    fontSize: 36,
+    marginTop: 10,
+    
+    width: '100%',
+  },
   sectionHeader: {
-    marginTop: 12,
+    marginTop: 53,
     marginBottom: 8,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
 
-  sectionTitle: { color: "#0C5B78", fontWeight: "700", fontSize: 13 },
+  sectionTitle: { color: "#1581C4", fontWeight: "300", fontSize: 16 },
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -264,9 +287,9 @@ const styles = StyleSheet.create({
 
   gridItem: {
     width: "48%",
-    height: 78,
+    height: 60,
     backgroundColor: "#fff",
-    borderRadius: 10,
+    borderRadius: 5,
     borderWidth: 1,
     borderColor: "#E6EEF3",
     marginBottom: 12,
@@ -282,8 +305,8 @@ const styles = StyleSheet.create({
   gridItemInner: { flexDirection: "row", alignItems: "center" },
 
   gridIconBox: {
-    width: 44,
-    height: 44,
+    width: 34,
+    height: 34,
     borderRadius: 8,
     backgroundColor: "#F7FBFD",
     alignItems: "center",
@@ -293,7 +316,7 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
 
-  gridText: { color: "#0C5B78", fontSize: 14, fontWeight: "600", flex: 1 },
+  gridText: { color: "#0C5B78", fontSize: 14, fontWeight: "400", flex: 1 },
   activityCard: {
     marginTop: 12,
     backgroundColor: "#fff",
@@ -328,9 +351,9 @@ const styles = StyleSheet.create({
   },
 
   activityTitle: {
-    fontSize: 14,
-    fontWeight: "700",
-    color: "#0C5B78",
+    fontSize: 15,
+    fontWeight: "500",
+    color: "#000",
     marginBottom: 6,
   },
 
@@ -338,6 +361,6 @@ const styles = StyleSheet.create({
 
   activityRight: { alignItems: "flex-end", marginLeft: 8 },
 
-  amount: { fontSize: 14, fontWeight: "800", color: "#0C5B78" },
-  status: { marginTop: 6, fontSize: 12, fontWeight: "700", color: "#12A54A" },
+  amount: { fontSize: 14, fontWeight: "800", color: "#000" },
+  status: { marginTop: 6, fontSize: 12, fontWeight: "300", color: "#12A54A" },
 });
